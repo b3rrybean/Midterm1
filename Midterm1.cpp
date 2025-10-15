@@ -1,19 +1,22 @@
 #include <iostream>
 using namespace std;
 
+// Constraints for min/max values (previously used in dummy statement)
 const int MIN_NR = 10, MAX_NR = 99, MIN_LS = 5, MAX_LS = 20;
 
 class DoublyLinkedList {
 private:
+    // Node struct represents each element in the doubly linked list
     struct Node {
         int data;       // The integer data stored in this node
         Node* prev;     // Pointer to the previous node
         Node* next;     // Pointer to the next node
 
+        // Node constructor initializes the data and optional previous/next pointers
         Node(int val, Node* p = nullptr, Node* n = nullptr) {
-            data = val;
-            prev = p;
-            next = n;
+            data = val; // Set the node's data
+            prev = p;   // Set the pointer to previous node
+            next = n;   // Set pointer to next node
         }
     };
 
@@ -29,17 +32,21 @@ public:
 
     // Insert a node after a specific position
     void insert_after(int value, int position) {
-        if (position < 0) {
+        if (position < 0) {     // Check for invalid position
             cout << "Position must be >= 0." << endl;
             return;
         }
 
+        // Create a new node with value
         Node* newNode = new Node(value);
+
+        // If empty, both head and tail point to new node
         if (!head) {    // Empty list
             head = tail = newNode;
             return;
         }
 
+        
         Node* temp = head;
         for (int i = 0; i < position && temp; ++i)
             temp = temp->next;
@@ -237,7 +244,24 @@ public:
     }
 
     // New mothod: print every other element (starting with first)
+    void every_other_element() {
+        if (!head) {
+            cout << "List is empty." << endl;
+            return;
+        }
 
+        Node* current = head;
+        bool skip = false;      // Whether or not to skip node
+
+        cout << "Every other element: ";
+        while (current) {
+            if (!skip)
+                cout << current->data << " ";
+            skip = !skip;
+            current = current->next;
+        }
+        cout << endl;
+    }
 
 };
 
@@ -271,7 +295,7 @@ int main() {
     list.print();         // Should print 80
 
     // Test every_other_element
-    
+    list.every_other_element();     // Should print 20 60 100
 
     return 0;
 }
