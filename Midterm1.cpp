@@ -216,21 +216,21 @@ public:
 
     ~DoublyLinkedList() {
         while (head) {              // While list is not empty
-            Node* temp = head;
-            head = head->next;
-            delete temp;
+            Node* temp = head;      // Save current head
+            head = head->next;      // Move head forward
+            delete temp;            // Delete old head
         }
     }
 
     // Prints all nodes from head to tail
     void print() {
-        Node* current = head;
-        if (!current) {
+        Node* current = head;       // Start at head
+        if (!current) {             // Empty list check
             cout << "List is empty." << endl;
             return;
         }
-        while (current) {
-            cout << current->data << " ";
+        while (current) {           // Traverse list
+            cout << current->data << " ";       // Print current node
             current = current->next;            // Move forward in the list
         }
         cout << endl;
@@ -238,34 +238,34 @@ public:
 
     // Print all elements from tail to head
     void print_reverse() {
-        Node* current = tail;
-        if (!current) {
+        Node* current = tail;                   // Start at tail
+        if (!current) {                         // Empty list check
             cout << "List is empty." << endl;
             return;
         }
-        while (current) {
+        while (current) {                       // Traverse backward
             cout << current->data << " ";
-            current = current->prev;
+            current = current->prev;            // Move backward
         }
         cout << endl;
     }
 
     // New mothod: print every other element (starting with first)
     void every_other_element() {
-        if (!head) {
+        if (!head) {    // Empty list check
             cout << "List is empty." << endl;
             return;
         }
 
-        Node* current = head;
+        Node* current = head;   // Start at head
         bool skip = false;      // Whether or not to skip node
 
         cout << "Every other element: ";
-        while (current) {
-            if (!skip)
+        while (current) {       // Traverse list
+            if (!skip)          // Print if not skipping
                 cout << current->data << " ";
-            skip = !skip;
-            current = current->next;
+            skip = !skip;       // Flip skip flag
+            current = current->next;    // Move forward
         }
         cout << endl;
     }
@@ -281,6 +281,9 @@ int main() {
     list.push_back(60);
     list.push_back(80);
     list.push_back(100);
+
+    // Test every_other_element
+    list.every_other_element();     // Should print 20 60 100
 
     cout << "Forward: ";
     list.print();         // Should print 20 40 60 80 100
@@ -300,9 +303,6 @@ int main() {
     list.pop_back();
     cout << "after popping front and back: ";
     list.print();         // Should print 80
-
-    // Test every_other_element
-    list.every_other_element();     // Should print 20 60 100
 
     return 0;
 }
