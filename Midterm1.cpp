@@ -46,17 +46,18 @@ public:
             return;
         }
 
-        
+        // Start from the head to find the target position
         Node* temp = head;
         for (int i = 0; i < position && temp; ++i)
-            temp = temp->next;
+            temp = temp->next;  // Move forward in the list
 
-        if (!temp) {    // Position out of bounds
+        if (!temp) {            // Position out of bounds
             cout << "Position exceeds list size. Node not inserted.\n";
             delete newNode;
             return;
         }
 
+        // Link newNode into the list
         newNode->next = temp->next;     // New node points to next node
         newNode->prev = temp;           // New node points back to temp
 
@@ -71,63 +72,69 @@ public:
 
     // Delete node by value
     void delete_val(int value) {
+
+        // If empty, nothing to delete
         if (!head) return;
 
+        // Start from head
         Node* temp = head;
         while (temp && temp->data != value)
-            temp = temp->next;
+            temp = temp->next;  // Traverse list to find value
 
         if (!temp) return;      // Value not found
 
+        // Update pointers to remove node
         if (temp->prev)
-            temp->prev->next = temp->next;
+            temp->prev->next = temp->next;  // Previous node skips over temp
         else
-            head = temp->next;  // Removing head
+            head = temp->next;  // If deleting head, update head
 
         if (temp->next)
-            temp->next->prev = temp->prev;
+            temp->next->prev = temp->prev;  // Next node skips over temp
         else
-            tail = temp->prev;  // Removing tail
+            tail = temp->prev;  // If deleting tail, update tail
 
         delete temp;
     }
 
-    // Delete node by position
+    // Delete node by position (1-based indexing)
     void delete_pos(int pos) {
-        if (!head) {
+        if (!head) {    // Check if list is empty
             cout << "List is empty." << endl;
             return;
         }
 
+        // Special case: delete first node
         if (pos == 1) {
             pop_front();
             return;
         }
 
+        // Start from head
         Node* temp = head;
-        for (int i = 1; i < pos; i++) {
-            if (!temp) {
+        for (int i = 1; i < pos; i++) { // Move to the target position
+            if (!temp) {                // Position doesn't exist
                 cout << "Position doesn't exist." << endl;
                 return;
             } else
-                temp = temp->next;
+                temp = temp->next;      // Move forward
         }
 
-        if (!temp) {
+        if (!temp) {            // Extra safety check
             cout << "Position doesn't exist." << endl;
             return;
         }
 
-        if (!temp->next) {      // Last node
+        if (!temp->next) {      // Special case: delete last node
             pop_back();
             return;
         }
 
-        // Remove temp from list
+        // Normal case: remove temp from the middle
         Node* tempPrev = temp->prev;
-        tempPrev->next = temp->next;
-        temp->next->prev = tempPrev;
-        delete temp;
+        tempPrev->next = temp->next;    // Link previous node to next
+        temp->next->prev = tempPrev;    // Link next node back to previous
+        delete temp;                    // Free memory
     }
 
     // Adds a new node to the end of the list
@@ -208,7 +215,7 @@ public:
     }
 
     ~DoublyLinkedList() {
-        while (head) {
+        while (head) {              // While list is not empty
             Node* temp = head;
             head = head->next;
             delete temp;
