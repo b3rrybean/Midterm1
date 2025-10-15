@@ -27,6 +27,7 @@ public:
         tail = nullptr;
     }
 
+    // Insert a node after a specific position
     void insert_after(int value, int position) {
         if (position < 0) {
             cout << "Position must be >= 0." << endl;
@@ -34,7 +35,7 @@ public:
         }
 
         Node* newNode = new Node(value);
-        if (!head) {
+        if (!head) {    // Empty list
             head = tail = newNode;
             return;
         }
@@ -43,23 +44,25 @@ public:
         for (int i = 0; i < position && temp; ++i)
             temp = temp->next;
 
-        if (!temp) {
+        if (!temp) {    // Position out of bounds
             cout << "Position exceeds list size. Node not inserted.\n";
             delete newNode;
             return;
         }
 
-        newNode->next = temp->next;
-        newNode->prev = temp;
+        newNode->next = temp->next;     // New node points to next node
+        newNode->prev = temp;           // New node points back to temp
 
         if (temp->next)
-            temp->next->prev = newNode;
+            temp->next->prev = newNode; // Next node points back to new node
         else
-            tail = newNode;
+            tail = newNode;             // If at end, update tail
 
-        temp->next = newNode;
+        temp->next = newNode;           // Temp points forward to new node
     }
 
+
+    // Delete node by value
     void delete_val(int value) {
         if (!head) return;
 
@@ -67,21 +70,22 @@ public:
         while (temp && temp->data != value)
             temp = temp->next;
 
-        if (!temp) return;
+        if (!temp) return;      // Value not found
 
         if (temp->prev)
             temp->prev->next = temp->next;
         else
-            head = temp->next;
+            head = temp->next;  // Removing head
 
         if (temp->next)
             temp->next->prev = temp->prev;
         else
-            tail = temp->prev;
+            tail = temp->prev;  // Removing tail
 
         delete temp;
     }
 
+    // Delete node by position
     void delete_pos(int pos) {
         if (!head) {
             cout << "List is empty." << endl;
@@ -107,11 +111,12 @@ public:
             return;
         }
 
-        if (!temp->next) {
+        if (!temp->next) {      // Last node
             pop_back();
             return;
         }
 
+        // Remove temp from list
         Node* tempPrev = temp->prev;
         tempPrev->next = temp->next;
         temp->next->prev = tempPrev;
@@ -203,6 +208,7 @@ public:
         }
     }
 
+    // Prints all nodes from head to tail
     void print() {
         Node* current = head;
         if (!current) {
@@ -211,11 +217,12 @@ public:
         }
         while (current) {
             cout << current->data << " ";
-            current = current->next;
+            current = current->next;            // Move forward in the list
         }
         cout << endl;
     }
 
+    // Print all elements from tail to head
     void print_reverse() {
         Node* current = tail;
         if (!current) {
@@ -228,6 +235,10 @@ public:
         }
         cout << endl;
     }
+
+    // New mothod: print every other element (starting with first)
+
+    
 };
 
 int main() {
