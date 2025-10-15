@@ -238,10 +238,40 @@ public:
 
     // New mothod: print every other element (starting with first)
 
-    
+
 };
 
 int main() {
-    cout << MIN_NR + MIN_LS + MAX_NR + MAX_LS; // dummy statement to avoid compiler warning
+    DoublyLinkedList list;
+
+    // Test data
+    list.push_back(20);
+    list.push_back(40);
+    list.push_back(60);
+    list.push_back(80);
+    list.push_back(100);
+
+    cout << "Forward: ";
+    list.print();         // Should print 20 40 60 80 100
+
+    cout << "Reverse: ";
+    list.print_reverse(); // Should print 100 80 60 40 20
+
+    list.delete_val(60);
+    cout << "After deleting 60: ";
+    list.print();         // Should print 20 40 80 100
+
+    list.delete_pos(2);
+    cout << "After deleting position 2: ";
+    list.print();         // Should print 20 80 100
+
+    list.pop_front();
+    list.pop_back();
+    cout << "after popping front and back: ";
+    list.print();         // Should print 80
+
+    // Test every_other_element
+    
+
     return 0;
 }
