@@ -6,9 +6,10 @@ const int MIN_NR = 10, MAX_NR = 99, MIN_LS = 5, MAX_LS = 20;
 class DoublyLinkedList {
 private:
     struct Node {
-        int data;
-        Node* prev;
-        Node* next;
+        int data;       // The integer data stored in this node
+        Node* prev;     // Pointer to the previous node
+        Node* next;     // Pointer to the next node
+
         Node(int val, Node* p = nullptr, Node* n = nullptr) {
             data = val;
             prev = p;
@@ -16,11 +17,12 @@ private:
         }
     };
 
-    Node* head;
-    Node* tail;
+    Node* head;         // Pointer to the first node (front of the list)
+    Node* tail;         // Pointer to the last node (end of the list)
 
 public:
     DoublyLinkedList() {
+        // Initializes pointers to null (empty list)
         head = nullptr;
         tail = nullptr;
     }
@@ -127,6 +129,7 @@ public:
         }
     }
 
+    // Adds a new node to the front of the list
     void push_front(int v) {
         Node* newNode = new Node(v);
         if (!head)
